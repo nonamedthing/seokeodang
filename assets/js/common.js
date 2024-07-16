@@ -42,7 +42,7 @@ const common =
         },
         bindCurrentHour : function () {
             let date = new Date();
-            this.hour = date.getHours();
+            this.hour = date.getHours() - 1;
         },
         getCurrentHour : function () {
             return this.hour +'00';
