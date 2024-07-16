@@ -1,8 +1,8 @@
 const common =
     {
         serviceKey : 'wi0HturBsF0NNnifZD1S50ta2vXAgK7AXz8a/Ssf0FJWyw/r6tsJkotxBQ7XMg0t7EwhpyOB8UkNiBoUshvpMg==',
-        wetherUrl : 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
-        riseUrl : 'http://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo',
+        wetherUrl : 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
+        riseUrl : 'https://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo',
         nx : '60',
         ny : '127',
         hour : 0,
