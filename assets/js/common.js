@@ -42,7 +42,8 @@ const common =
             this.bindCurrentHour();
             this.getCurrentDate();
             $('.container').append('<div>' + this.getCurrentDate() + ' ' + this.getCurrentHour() + '기준 </div>');
-            this.getWether();
+            common.setRain(true);
+            // this.getWether();
         },
         getMonth : function (date) {
             let month = date.getMonth() + 1;
