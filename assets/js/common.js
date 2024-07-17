@@ -1,123 +1,162 @@
 const common =
     {
-        serviceKey : 'wi0HturBsF0NNnifZD1S50ta2vXAgK7AXz8a/Ssf0FJWyw/r6tsJkotxBQ7XMg0t7EwhpyOB8UkNiBoUshvpMg==',
-        wetherUrl : 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
-        riseUrl : 'https://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo',
-        nx : '60',
-        ny : '127',
-        hour : 0,
-        sunrise : 0,
-        sunset : 0,
-        interval : null,
-        init : function () {
-            this.getRise();
+        serviceKey: 'wi0HturBsF0NNnifZD1S50ta2vXAgK7AXz8a/Ssf0FJWyw/r6tsJkotxBQ7XMg0t7EwhpyOB8UkNiBoUshvpMg==',
+        wetherUrl: 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst',
+        riseUrl: 'https://apis.data.go.kr/B090041/openapi/service/RiseSetInfoService/getAreaRiseSetInfo',
+        nx: '60',
+        ny: '127',
+        hour: 0,
+        date: '',
+        sunrise: 0,
+        sunset: 0,
+        springDate: '0305', // 경칩
+        summerDate: '0621', // 하지
+        fallDate: '0922', // 추분
+        winterDate: '1122', // 소설
+        interval: null,
+        init: function () {
             this.events();
         },
-        events : function () {
-            setTimeout(function () {
-                common.setNight();
-            }, 500);
+        events: function () {
+            this.getRise();
+            this.bindSeason();
+
             this.reset();
 
             this.interval = setInterval(function () {
-                // 날짜가 바뀌면 일출/일몰 계산
+                let date = common.getCurrentDate();
+                if (date != common.date) {
+                    common.date = date;
+                    common.getRise();
+                    common.bindSeason();
+                } else {
+                    common.setNight();
+                }
 
                 if (hour != common.hour) {
                     common.reset();
                 }
             }, 360000);
         },
-        reset : function () {
+        reset: function () {
             this.bindCurrentHour();
-            $('.container').append('<div>'+this.getCurrentDate()+ ' '+this.getCurrentHour()+'기준 </div>');
-            this.getWether();       
+            this.getCurrentDate();
+            $('.container').append('<div>' + this.getCurrentDate() + ' ' + this.getCurrentHour() + '기준 </div>');
+            this.getWether();
         },
-        getCurrentDate : function () {
-            let date = new Date();
-            let month = date.getMonth()+1;
+        getMonth : function (date) {
+            let month = date.getMonth() + 1;
             if (month < 10) {
-                month = '0'+month;
+                month = '0' + month;
             }
-            return date.getFullYear() + '' + month +''+ date.getDate();
+            return month;
         },
-        bindCurrentHour : function () {
+        getCurrentDate: function () {
             let date = new Date();
-            this.hour = date.getHours() - 1;
+            let month = this.getMonth(date);
+
+            return date.getFullYear() + '' + month + '' + date.getDate();
         },
-        getCurrentHour : function () {
+        bindCurrentHour: function () {
+            let date = new Date();
+            this.hour = date.getMinutes() < 40 ? date.getHours() - 1 : date.getHours();
+        },
+        getCurrentHour: function () {
             let hour = this.hour < 10 ? '0' + this.hour : this.hour;
-            return hour +'00';
+            return hour + '00';
         },
-        getRise : function () {
-            $.ajax({    
-                type : 'get',
-                url : this.riseUrl,
-                async : true,
-                data : {
-                    serviceKey : this.serviceKey,
-                    locdate : this.getCurrentDate(),
-                    location : '서울',
+        getRise: function () {
+            $.ajax({
+                type: 'get',
+                url: this.riseUrl,
+                async: true,
+                data: {
+                    serviceKey: this.serviceKey,
+                    locdate: this.getCurrentDate(),
+                    location: '서울',
                 },
-                success : function (result) {
+                success: function (result) {
                     let obj = $.xml2json(result);
                     let items = obj.body.items.item;
                     common.sunrise = items.sunrise;
                     common.sunset = items.sunset;
-                    $('.container').append('<div>일출 : '+common.sunrise+ '</div>');
-                    $('.container').append('<div>일몰 : '+common.sunset+ '</div>');
+                    common.setNight();
+
+                    $('.container').append('<div>일출 : ' + common.sunrise + '</div>');
+                    $('.container').append('<div>일몰 : ' + common.sunset + '</div>');
                 },
-                error : function (error) {
+                error: function (error) {
                     console.log(error);
                 }
             });
         },
-        getWether : function () {
-            $.ajax({    
-                type : 'get',
-                url : this.wetherUrl,
-                async : true,
-                data : {
-                    serviceKey : this.serviceKey,
-                    pageNo : 1,
-                    dataType : 'JSON',
-                    base_date : this.getCurrentDate(),
-                    base_time : this.getCurrentHour(),
-                    nx : this.nx,
-                    ny : this.ny,
+        getWether: function () {
+            $.ajax({
+                type: 'get',
+                url: this.wetherUrl,
+                async: true,
+                data: {
+                    serviceKey: this.serviceKey,
+                    pageNo: 1,
+                    dataType: 'JSON',
+                    base_date: this.getCurrentDate(),
+                    base_time: this.getCurrentHour(),
+                    nx: this.nx,
+                    ny: this.ny,
                 },
-                success : function (result) {
+                success: function (result) {
                     let items = result.response.body.items.item;
                     common.bindWetherResults(items);
                 },
-                error : function (error) {
+                error: function (error) {
                     console.log(error);
                 }
             });
         },
-        bindWetherResults : function (items) {
+        bindWetherResults: function (items) {
             $(items).each(function (index) {
                 let item = items[index];
                 switch (item.category) {
-                // 강수형태
-                // case 'PTY' :
-                //     common.setRain(item.obsrValue > 0);
-                //     break;
-                // 1시간 강수량
-                case 'RN1' :
-                    common.setRain(item.obsrValue > 0);
-                    $('.container').append('<div>비옴</div>');
-                    break;
+                    // 강수형태
+                    // case 'PTY' :
+                    //     common.setRain(item.obsrValue > 0);
+                    //     break;
+                    // 1시간 강수량
+                    case 'RN1' :
+                        common.setRain(item.obsrValue > 0);
+                        $('.container').append('<div>비옴</div>');
+                        break;
                 }
             });
         },
-        setRain : function (bool) {
+        bindSeason: function () {
+            let date = new Date();
+            let currentDate = this.getMonth(date) + '' + date.getDate();
+
+            let season = 'winter';
+            if (common.springDate <= currentDate && common.summerDate >= currentDate) {
+                season = 'spring';
+            } else if (common.summerDate <= currentDate && common.fallDate >= currentDate) {
+                season = 'summer';
+            } else if (common.summerDate <= currentDate && common.fallDate >= currentDate) {
+                season = 'fall';
+            }
+
+            this.setSeason(season);
+            $('.container').append('<div>'+season+'</div>');
+        },
+        setSeason: function (season) {
+            $('.container').removeClass('spring summer fall winter');
+            $('.container').addClass(season);
+        },
+        setRain: function (bool) {
             if (bool) {
                 $('.container').addClass('rain');
             } else {
                 $('.container').removeClass('rain');
             }
         },
-        setNight : function () {            
+        setNight: function () {
             let date = new Date();
             let hour = date.getHours();
             let minute = date.getMinutes();
