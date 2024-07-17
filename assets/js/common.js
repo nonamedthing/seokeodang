@@ -45,7 +45,8 @@ const common =
             this.hour = date.getHours() - 1;
         },
         getCurrentHour : function () {
-            return this.hour +'00';
+            let hour = this.hour < 10 ? '0' + this.hour : this.hour;
+            return hour +'00';
         },
         getRise : function () {
             $.ajax({    
