@@ -124,7 +124,9 @@ const common =
                     // 1시간 강수량
                     case 'RN1' :
                         common.setRain(item.obsrValue > 0);
-                        $('.container').append('<div>비옴</div>');
+                        if (item.obsrValue > 0) {
+                            $('.container').append('<div>비옴</div>');
+                        }
                         break;
                 }
             });
@@ -150,11 +152,46 @@ const common =
             $('.container').addClass(season);
         },
         setRain: function (bool) {
+            console.log(bool);
             if (bool) {
+
                 $('.container').addClass('rain');
+                $('.container .rain').show();
+                this.makeItRain();
             } else {
                 $('.container').removeClass('rain');
+                $('.container .rain').hide();
             }
+        },
+        makeItRain : function () {
+            $('.rain-container').empty();
+            let width = $(document).innerWidth();
+            let height = $(document).innerHeight();
+            console.log(width);
+            console.log(height);
+
+            $('.rain-container').css({width : height});
+            $('.rain-container').css({height : width});
+
+            var increment = 0;
+            var drops = "";
+            var backDrops = "";
+
+            while (increment < 100) {
+                //couple random numbers to use for various randomizations
+                //random number between 98 and 1
+                var randoHundo = (Math.floor(Math.random() * (98 - 1 + 1) + 1));
+                //random number between 5 and 2
+                var randoFiver = (Math.floor(Math.random() * (5 - 2 + 1) + 2));
+                //increment
+                increment += randoFiver;
+                //add in a new raindrop with various randomizations to certain CSS properties
+                drops += '<div class="drop" style="left: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+                backDrops += '<div class="drop" style="right: ' + increment + '%; bottom: ' + (randoFiver + randoFiver - 1 + 100) + '%; animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"><div class="stem" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div><div class="splat" style="animation-delay: 0.' + randoHundo + 's; animation-duration: 0.5' + randoHundo + 's;"></div></div>';
+            }
+
+            $('.rain-container.front-row').append(drops);
+            $('.rain-container.back-row').append(backDrops);
         },
         setNight: function () {
             let date = new Date();
