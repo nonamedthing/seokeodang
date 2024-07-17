@@ -24,7 +24,7 @@ const common =
             this.reset();
 
             this.interval = setInterval(function () {
-                let date = common.getCurrentDate();
+                let hour = common.getCurrentHour();
                 if (date != common.date) {
                     common.date = date;
                     common.getRise();

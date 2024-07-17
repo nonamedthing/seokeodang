@@ -154,3 +154,29 @@ body.splat-toggle .splat {
     background-size: contain;
     z-index: 2;
 }
+
+/* cloud */
+.cloud {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    background: url('../images/background/cloud.png') no-repeat;
+    background-size: cover;
+    animation: animate-cloud 40s linear infinite;
+    opacity: 0.5;
+    z-index: -2;
+}
+
+@keyframes animate-cloud {
+    0% {
+        background-position-x: 0px;
+        background-position-y: 0px;
+    }
+
+    100% {
+        background-position-x: 0px;
+        background-position-y: -3400px;
+    }
+}
