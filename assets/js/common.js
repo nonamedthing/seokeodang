@@ -42,8 +42,7 @@ const common =
             this.bindCurrentHour();
             this.getCurrentDate();
             $('.container').append('<div>' + this.getCurrentDate() + ' ' + this.getCurrentHour() + '기준 </div>');
-            common.setRain(true);
-            // this.getWether();
+            this.getWether();
         },
         getMonth : function (date) {
             let month = date.getMonth() + 1;
@@ -162,14 +161,13 @@ const common =
             } else {
                 $('.container').removeClass('rain');
                 $('.container .rain').hide();
+                $('.rain-container').empty();
             }
         },
         makeItRain : function () {
             $('.rain-container').empty();
             let width = $(document).innerWidth();
             let height = $(document).innerHeight();
-            console.log(width);
-            console.log(height);
 
             $('.rain-container').css({width : height});
             $('.rain-container').css({height : width});
