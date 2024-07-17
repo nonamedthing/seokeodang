@@ -119,11 +119,11 @@ const common =
         },
         setNight : function () {            
             let date = new Date();
-            hour = date.getHours();
-            minute = date.getMinutes();
+            let hour = date.getHours();
+            let minute = date.getMinutes();
             let time = hour + '' + minute;
 
-            let bool = this.sunrise < time || this.sunset > time
+            let bool = this.sunrise > time || this.sunset < time
             if (bool) {
                 $('.container').addClass('night');
             } else {
