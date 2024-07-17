@@ -137,9 +137,9 @@ body.splat-toggle .splat {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: image('../images/background/tree.png');
+    background: url('../images/background/tree.png') no-repeat;
     background-position: left bottom;
-    background-size: cover;
+    background-size: contain;
     z-index: 1;
 }
 
@@ -149,8 +149,8 @@ body.splat-toggle .splat {
     bottom: 0;
     width: 100%;
     height: 100%;
-    background: image('../images/background/leaves.png');
+    background: url('../images/background/leaves.png') no-repeat;
     background-position: left bottom;
-    background-size: cover;
+    background-size: contain;
     z-index: 2;
 }
