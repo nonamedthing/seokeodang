@@ -5,7 +5,126 @@
     position: fixed;
 }
 
-.container.night {
-    background: #002739;
+.container.rain {
+    background: #738e9a;
     color:#ffffff;
+}
+
+.container.night {
+    background: #001f39;
+    color:#ffffff;
+}
+
+.container.rain.night {
+    background: #000910;
+    color:#ffffff;
+}
+
+.rand {
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 80px;
+    height: 100%;
+    background: #e8cfb6;
+    z-index: -1;
+}
+
+.rain .rand {
+    background: #a08b75;
+}
+
+
+.night .rand {
+    background: #2e2a26;
+}
+
+/* rain effect */
+
+.rain-container {
+    position: absolute;
+    left: 40px;
+    top:145px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transform-origin: center;
+    transform: rotate(90deg);
+}
+
+.drop {
+    position: absolute;
+    bottom: 100%;
+    width: 15px;
+    height: 120px;
+    pointer-events: none;
+    animation: drop 0.5s linear infinite;
+}
+
+@keyframes drop {
+    0% {
+        transform: translateY(0vh);
+    }
+    75% {
+        transform: translateY(90vh);
+    }
+    100% {
+        transform: translateY(90vh);
+    }
+}
+
+.stem {
+    width: 1px;
+    height: 60%;
+    margin-left: 7px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+    animation: stem 0.5s linear infinite;
+}
+
+@keyframes stem {
+    0% {
+        opacity: 1;
+    }
+    65% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.splat {
+    width: 15px;
+    height: 10px;
+    border-top: 2px dotted rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    opacity: 1;
+    transform: scale(0);
+    animation: splat 0.5s linear infinite;
+}
+
+body.splat-toggle .splat {
+    display: block;
+}
+
+@keyframes splat {
+    0% {
+        opacity: 1;
+        transform: scale(0);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(0);
+    }
+    90% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.5);
+    }
 }
