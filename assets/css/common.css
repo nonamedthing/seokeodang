@@ -1,11 +1,173 @@
 .container {
-    background: #00afff;
+    background: linear-gradient(-90deg, #65b8ff, #b5ddff);
     width: 100%;
     height: 100%;
     position: fixed;
 }
 
-.container.night {
-    background: #002739;
+.container.rain {
+    background: #738e9a;
     color:#ffffff;
+}
+
+.container.night {
+    background: #001f39;
+    color:#ffffff;
+}
+
+.container.rain.night {
+    background: #000910;
+    color:#ffffff;
+}
+
+.rand {
+    position: fixed;
+    left: 0;
+    top:0;
+    width: 80px;
+    height: 100%;
+    background: linear-gradient(-90deg, #ccb5a2, #e8cfb6);
+    z-index: -1;
+}
+
+.rain .rand {
+    background: #a08b75;
+}
+
+
+.night .rand {
+    background: #2e2a26;
+}
+
+/* rain effect */
+
+.rain-container {
+    position: absolute;
+    left: -40px;
+    top:145px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transform-origin: center;
+    transform: rotate(90deg);
+}
+
+.drop {
+    position: absolute;
+    bottom: 100%;
+    width: 15px;
+    height: 120px;
+    pointer-events: none;
+    animation: drop 0.5s linear infinite;
+}
+
+@keyframes drop {
+    0% {
+        transform: translateY(0vh);
+    }
+    75% {
+        transform: translateY(90vh);
+    }
+    100% {
+        transform: translateY(90vh);
+    }
+}
+
+.stem {
+    width: 1px;
+    height: 60%;
+    margin-left: 7px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.25));
+    animation: stem 0.5s linear infinite;
+}
+
+@keyframes stem {
+    0% {
+        opacity: 1;
+    }
+    65% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.building {
+    position: fixed;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/building.png') no-repeat;
+    background-position: left top;
+    background-size: contain;
+    z-index: -2;
+}
+
+.background-tree {
+    position: fixed;
+    left: 0;
+    top: -100px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/background-tree.png') no-repeat;
+    background-position: left top;
+    background-size: contain;
+    z-index: -2;
+}
+
+/* tree */
+
+.tree {
+    position: fixed;
+    left: 0;
+    bottom: -80px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/tree.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 1;
+}
+
+.tree-deco {
+    position: fixed;
+    left: 0;
+    bottom: -80px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/leaves.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 2;
+}
+
+/* cloud */
+.cloud {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    background: url('../images/background/cloud.png') no-repeat;
+    background-size: cover;
+    animation: animate-cloud 150s linear infinite;
+    opacity: 0.5;
+    z-index: -2;
+}
+
+@keyframes animate-cloud {
+    0% {
+        background-position-x: 0px;
+        background-position-y: 0px;
+    }
+
+    100% {
+        background-position-x: 0px;
+        background-position-y: -3400px;
+    }
 }

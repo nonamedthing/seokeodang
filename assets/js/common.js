@@ -53,7 +53,13 @@ const common =
         },
         getCurrentDate: function () {
             let date = new Date();
+            if (this.getCurrentHour(date) < 0) {
+                date.setDate(date.getDate() - 1);
+            }
+
+            let year = date.getFullYear();
             let month = this.getMonth(date);
+            let dateNum = date.getDate();
 
             return date.getFullYear() + '' + month + '' + date.getDate();
         },
@@ -152,15 +158,16 @@ const common =
             $('.container').addClass(season);
         },
         setRain: function (bool) {
-            console.log(bool);
             if (bool) {
 
                 $('.container').addClass('rain');
                 $('.container .rain').show();
+                $('.cloud').show();
                 this.makeItRain();
             } else {
                 $('.container').removeClass('rain');
                 $('.container .rain').hide();
+                $('.cloud').hide();
                 $('.rain-container').empty();
             }
         },
@@ -194,8 +201,8 @@ const common =
         },
         setNight: function () {
             let date = new Date();
-            let hour = date.getHours();
-            let minute = date.getMinutes();
+            let hour = date.getHours() < 10 ? '0'+date.getHours() : date.getHours();
+            let minute = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
             let time = hour + '' + minute;
 
             let bool = this.sunrise > time || this.sunset < time
