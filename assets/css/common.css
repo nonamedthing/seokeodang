@@ -66,6 +66,13 @@
     z-index: -2;
 }
 
+.winter .background-tree {
+    background: url('../images/background/background-tree-winter.png') no-repeat;
+    background-position: left top;
+    background-size: contain;
+    z-index: -2;
+}
+
 .palace {
     position: fixed;
     left: 0;
