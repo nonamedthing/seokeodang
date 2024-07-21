@@ -178,7 +178,7 @@
 
 #setting > .button-container {
     position: fixed;
-    left: 50vh;
+    left: 40vh;
     top: 0;
     text-align: center;
     transform: rotate(90deg);
@@ -317,7 +317,7 @@
 
 .snow-container {
     position: fixed;
-    left: 57vh;
+    left: 40vh;
     top: 0;
     text-align: center;
     transform: rotate(90deg);
