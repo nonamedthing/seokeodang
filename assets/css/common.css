@@ -317,7 +317,7 @@
 
 .snow-container {
     position: fixed;
-    left: 15vh;
+    left: -10vh;
     top: 0;
     text-align: center;
     transform: rotate(90deg);
