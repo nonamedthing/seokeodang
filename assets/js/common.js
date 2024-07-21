@@ -62,6 +62,9 @@ const common =
             this.reset();
         },
         reset : function () {
+            common.setSnow(false);
+            common.setRain(false);
+
             this.getRise();
             this.bindSeason();
 
