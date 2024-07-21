@@ -16,12 +16,56 @@ const common =
         interval: null,
         init: function () {
             this.events();
+
+            $(document).on('dblclick', function () {
+                $('#setting').show();
+            });
+
+            $('#setting .close').on('click', function () {
+                $('#setting').hide();
+            });
+
+            $('#setting .setting-day').on('click', function () {
+                let bool = $(this).hasClass('on');
+                common.setBtnOn($(this), bool);
+                common.setNight(bool);
+            });
+
+            $('#setting .setting-rain').on('click', function () {
+                let bool = $(this).hasClass('on');
+
+                common.setBtnOn($('#setting .setting-snow'), true);
+                common.setSnow(false);
+
+                common.setBtnOn($(this), bool);
+                common.setRain(!bool);
+            });
+
+            $('#setting .setting-snow').on('click', function () {
+                let bool = $(this).hasClass('on');
+
+                common.setBtnOn($('#setting .setting-rain'), true);
+                common.setRain(false);
+
+                common.setBtnOn($(this), bool);
+                common.setSnow(!bool);
+            });
+        },
+        setBtnOn : function (element, bool) {
+            if (!bool) {
+                element.addClass('on');
+            } else {
+                element.removeClass('on');
+            }
         },
         events: function () {
+            this.reset();
+        },
+        reset : function () {
             this.getRise();
             this.bindSeason();
 
-            this.reset();
+            this.updateItems();
 
             this.interval = setInterval(function () {
                 let hour = common.getCurrentHour();
@@ -30,18 +74,17 @@ const common =
                     common.getRise();
                     common.bindSeason();
                 } else {
-                    common.setNight();
+                    common.bindNight();
                 }
 
                 if (hour != common.hour) {
-                    common.reset();
+                    common.updateItems();
                 }
             }, 360000);
         },
-        reset: function () {
+        updateItems: function () {
             this.bindCurrentHour();
             this.getCurrentDate();
-            $('.container').append('<div>' + this.getCurrentDate() + ' ' + this.getCurrentHour() + '기준 </div>');
             this.getWether();
         },
         getMonth : function (date) {
@@ -86,10 +129,7 @@ const common =
                     let items = obj.body.items.item;
                     common.sunrise = items.sunrise;
                     common.sunset = items.sunset;
-                    common.setNight();
-
-                    $('.container').append('<div>일출 : ' + common.sunrise + '</div>');
-                    $('.container').append('<div>일몰 : ' + common.sunset + '</div>');
+                    common.bindNight();
                 },
                 error: function (error) {
                     console.log(error);
@@ -129,10 +169,9 @@ const common =
                     //     break;
                     // 1시간 강수량
                     case 'RN1' :
-                        common.setRain(item.obsrValue > 0);
-                        if (item.obsrValue > 0) {
-                            $('.container').append('<div>비옴</div>');
-                        }
+                        let bool = item.obsrValue > 0;
+                        common.setRain(bool);
+                        common.setBtnOn($('#setting .setting-rain'), !bool);
                         break;
                 }
             });
@@ -151,7 +190,6 @@ const common =
             }
 
             this.setSeason(season);
-            $('.container').append('<div>'+season+'</div>');
         },
         setSeason: function (season) {
             $('.container').removeClass('spring summer fall winter');
@@ -159,7 +197,6 @@ const common =
         },
         setRain: function (bool) {
             if (bool) {
-
                 $('.container').addClass('rain');
                 $('.container .rain').show();
                 $('.cloud').show();
@@ -169,6 +206,22 @@ const common =
                 $('.container .rain').hide();
                 $('.cloud').hide();
                 $('.rain-container').empty();
+            }
+        },
+        setSnow: function (bool) {
+            if (bool) {
+                $('.container').addClass('rain');
+                $('.cloud').show();
+                $('.container .snow-container').snowfall({
+                    image :"./assets/images/flake.png",
+                    minSize: 3,
+                    maxSize:10,
+                    flakeCount : 120
+                });
+            } else {
+                $('.container').removeClass('rain');
+                $('.cloud').hide();
+                $('.container .snow-container').empty();
             }
         },
         makeItRain : function () {
@@ -199,17 +252,31 @@ const common =
             $('.rain-container.front-row').append(drops);
             $('.rain-container.back-row').append(backDrops);
         },
-        setNight: function () {
+        bindNight: function () {
             let date = new Date();
             let hour = date.getHours() < 10 ? '0'+date.getHours() : date.getHours();
             let minute = date.getMinutes() < 10 ? '0'+date.getMinutes() : date.getMinutes();
             let time = hour + '' + minute;
 
-            let bool = this.sunrise > time || this.sunset < time
+            let bool = this.sunrise > time || this.sunset < time;
+
+            if (!bool) {
+                $('#setting .setting-day').addClass('on');
+            } else {
+                $('#setting .setting-day').removeClass('on');
+            }
+
+
+            this.setNight(bool);
+
+        },
+        setNight : function (bool) {
             if (bool) {
                 $('.container').addClass('night');
             } else {
                 $('.container').removeClass('night');
             }
         }
+
+        
     }

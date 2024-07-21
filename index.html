@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/images/favicon/favicon-16x16.png">
@@ -20,7 +20,7 @@
     <title>석어당</title>
 
     <link rel="stylesheet" href="./assets/css/reset.css">
-    <link rel="stylesheet" href="./assets/css/common.css?v=24071901">
+    <link rel="stylesheet" href="./assets/css/common.css?v=24072101">
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"
             integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -30,15 +30,39 @@
     <div class="rand"></div>
     <div class="cloud"></div>
     <div class="tree"></div>
-    <div class="tree-deco"></div>
+    <div class="tree-deco tree-deco2"></div>
+    <div class="tree-deco tree-deco1"></div>
+    <div class="tree-deco tree-deco0"></div>
     <div class="building"></div>
     <div class="background-tree"></div>
     <div class="palace"></div>
     <div class="rain-container front-row"></div>
     <div class="rain-container back-row"></div>
+    <div class="snow-container"></div>
+</div>
+<div id="setting">
+    <div class="button-container">
+        <div class="close"></div>
+        <div class="title">SETTING</div>
+        <div>
+            <button type="button" class="setting-refresh" onclick="common.reset()">동기화</button>
+            <button type="button" class="setting-day">낮</button>
+            <button type="button" class="setting-rain">비</button>
+            <button type="button" class="setting-snow">눈</button>
+        </div>
+        <div>
+            <button type="button" class="setting-spring" onclick="common.setSeason('spring')">봄</button>
+            <button type="button" class="setting-summer" onclick="common.setSeason('summer')">여름</button>
+            <button type="button" class="setting-fall" onclick="common.setSeason('fall')">가을</button>
+            <button type="button" class="setting-winter" onclick="common.setSeason('winter')">겨울</button>
+        </div>
+    </div>
 </div>
 <script src="./assets/js/xml2json.js"></script>
-<script src="./assets/js/common.js?v=24071901"></script>
+<script src="./assets/js/mobiledblclick.js"></script>
+<script src="./assets/js/snowfall.jquery.min.js"></script>
+<script src="./assets/js/snowfall.min.js"></script>
+<script src="./assets/js/common.js?v=24072101"></script>
 <script>
     common.init();
 </script>

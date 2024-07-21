@@ -7,23 +7,23 @@
 
 .container.rain {
     background: #738e9a;
-    color:#ffffff;
+    color: #ffffff;
 }
 
 .container.night {
     background: #001f39;
-    color:#ffffff;
+    color: #ffffff;
 }
 
 .container.rain.night {
     background: #000910;
-    color:#ffffff;
+    color: #ffffff;
 }
 
 .rand {
     position: fixed;
     left: 0;
-    top:0;
+    top: 0;
     width: 80px;
     height: 100%;
     background: linear-gradient(-90deg, #ccb5a2, #e8cfb6);
@@ -34,20 +34,238 @@
     background: #a08b75;
 }
 
+.night * {
+    filter: brightness(50%);
+}
 
 .night .rand {
     background: #2e2a26;
 }
 
+.building {
+    position: fixed;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/building.png') no-repeat;
+    background-position: left top;
+    background-size: contain;
+    z-index: -2;
+}
+
+.background-tree {
+    position: fixed;
+    left: 0;
+    top: -100px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/background-tree.png') no-repeat;
+    background-position: left top;
+    background-size: contain;
+    z-index: -2;
+}
+
+.palace {
+    position: fixed;
+    left: 0;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/palace.png') no-repeat;
+    background-size: contain;
+}
+
+.night .palace {
+    background: url('../images/background/palace-night.png') no-repeat;
+    filter: brightness(100%);
+    background-size: contain;
+}
+
+/* tree */
+
+.tree {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: url('../images/background/tree.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 1;
+}
+
+.tree-deco {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background-position: left bottom;
+    background-size: contain;
+}
+
+.summer .tree-deco0 {
+    background: url('../images/background/fruit1.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 4;
+}
+
+.summer .tree-deco2 {
+    background: url('../images/background/fruit2.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 2;
+}
+
+.tree-deco1 {
+    background: url('../images/background/leaves.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 3;
+}
+
+.spring .tree-deco1 {
+    background: url('../images/background/flower.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 3;
+}
+
+.winter .tree-deco1 {
+    background: url('../images/background/snow.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 3;
+}
+
+/* cloud */
+.cloud {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 80%;
+    height: 100%;
+    background: url('../images/background/cloud.png') no-repeat;
+    background-size: cover;
+    animation: animate-cloud 150s linear infinite;
+    opacity: 0.5;
+    z-index: -2;
+}
+
+@keyframes animate-cloud {
+    0% {
+        background-position-x: 0px;
+        background-position-y: 0px;
+    }
+
+    100% {
+        background-position-x: 0px;
+        background-position-y: -3400px;
+    }
+}
+
+/* setting */
+#setting {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: none;
+}
+
+#setting > .button-container {
+    position: fixed;
+    left: 50vh;
+    top: 0;
+    text-align: center;
+    transform: rotate(90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    z-index: 999;
+}
+
+#setting > .button-container > div {
+    margin-bottom: 10px;
+}
+
+#setting .close {
+    position: absolute;
+    right: 30px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    /*background: #ddd;*/
+}
+
+#setting .close:after {
+    display: inline-block;
+    content: "\00d7";
+    font-size: 30px;
+    color: #fff;
+}
+
+#setting .title {
+    font-size: 27px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+#setting button {
+    width: 100px;
+    height: 100px;
+    background: #a9a9a9;
+    color: #d9d9d9;
+    font-size: 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+#setting .setting-refresh {
+    background: #008a46;
+}
+
+#setting .setting-day.on {
+    background: #ff7200;
+}
+
+#setting .setting-rain.on {
+    background: #090a72;
+}
+
+#setting .setting-snow.on {
+    background: #1289a2;
+}
+
+#setting .setting-spring {
+    background: #ff5b99;
+}
+
+#setting .setting-summer {
+    background: #0048ff;
+}
+
+#setting .setting-fall {
+    background: #5e2300;
+}
+
+#setting .setting-winter {
+    background: #60728a;
+}
 /* rain effect */
 
 .rain-container {
     position: absolute;
     left: -40px;
-    top:145px;
+    top: 145px;
     width: 100%;
     height: 100%;
-    z-index: 2;
+    z-index: 9;
     transform-origin: center;
     transform: rotate(90deg);
 }
@@ -59,6 +277,7 @@
     height: 120px;
     pointer-events: none;
     animation: drop 0.5s linear infinite;
+    filter: brightness(100%);
 }
 
 @keyframes drop {
@@ -96,78 +315,18 @@
     }
 }
 
-.building {
+.snow-container {
     position: fixed;
-    left: 0;
-    top: 0px;
-    width: 100%;
-    height: 100%;
-    background: url('../images/background/building.png') no-repeat;
-    background-position: left top;
-    background-size: contain;
-    z-index: -2;
-}
-
-.background-tree {
-    position: fixed;
-    left: 0;
-    top: -100px;
-    width: 100%;
-    height: 100%;
-    background: url('../images/background/background-tree.png') no-repeat;
-    background-position: left top;
-    background-size: contain;
-    z-index: -2;
-}
-
-/* tree */
-
-.tree {
-    position: fixed;
-    left: 0;
-    bottom: -80px;
-    width: 100%;
-    height: 100%;
-    background: url('../images/background/tree.png') no-repeat;
-    background-position: left bottom;
-    background-size: contain;
-    z-index: 1;
-}
-
-.tree-deco {
-    position: fixed;
-    left: 0;
-    bottom: -80px;
-    width: 100%;
-    height: 100%;
-    background: url('../images/background/leaves.png') no-repeat;
-    background-position: left bottom;
-    background-size: contain;
-    z-index: 2;
-}
-
-/* cloud */
-.cloud {
-    position: absolute;
-    right: 0;
+    left: 57vh;
     top: 0;
-    width: 80%;
-    height: 100%;
-    background: url('../images/background/cloud.png') no-repeat;
-    background-size: cover;
-    animation: animate-cloud 150s linear infinite;
-    opacity: 0.5;
-    z-index: -2;
+    text-align: center;
+    transform: rotate(90deg);
+    transform-origin: left top;
+    width: 100vh;
+    height: 100vw;
+    z-index: 999;
 }
 
-@keyframes animate-cloud {
-    0% {
-        background-position-x: 0px;
-        background-position-y: 0px;
-    }
-
-    100% {
-        background-position-x: 0px;
-        background-position-y: -3400px;
-    }
+.snow-container .snowfall-flakes {
+    filter: brightness(100%);
 }
