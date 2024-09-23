@@ -73,6 +73,13 @@
     z-index: -2;
 }
 
+.fall .background-tree {
+    background: url('../images/background/background-tree-fall.png') no-repeat;
+    background-position: left top;
+    background-size: contain;
+    z-index: -2;
+}
+
 .palace {
     position: fixed;
     left: 0;
@@ -136,6 +143,13 @@
 
 .spring .tree-deco1 {
     background: url('../images/background/flower.png') no-repeat;
+    background-position: left bottom;
+    background-size: contain;
+    z-index: 3;
+}
+
+.fall .tree-deco1 {
+    background: url('../images/background/leaves-fall.png') no-repeat;
     background-position: left bottom;
     background-size: contain;
     z-index: 3;
