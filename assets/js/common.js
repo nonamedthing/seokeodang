@@ -188,7 +188,7 @@ const common =
                 season = 'spring';
             } else if (common.summerDate <= currentDate && common.fallDate >= currentDate) {
                 season = 'summer';
-            } else if (common.summerDate <= currentDate && common.fallDate >= currentDate) {
+            } else if (common.fallDate <= currentDate && common.winterDate >= currentDate) {
                 season = 'fall';
             }
 
